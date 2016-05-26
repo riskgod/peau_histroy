@@ -1,0 +1,17 @@
+default: &default
+  adapter: mysql2
+  host: localhost
+  encoding: utf8
+  database: shop
+  username: root
+  password: mysql
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+production:
+  <<: *default

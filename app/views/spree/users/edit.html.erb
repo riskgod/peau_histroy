@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <h3>隐私设置</h3>
+    <hr/>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for Spree::User.new, :as => @user, :url => spree.user_path(@user), :method => :put, html: { class: "form-horizontal" } do |f| %>
+        <%= render :partial => 'spree/shared/user_form', :locals => { :f => f } %>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-4">
+            <%= f.submit Spree.t(:update), :class => 'btn btn-primary', data: {disable_with: "请稍等"} %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

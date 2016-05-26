@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= Settings.site.seo_title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="<%= Settings.site.description %>" />
+<meta name="keywords" content="<%= Settings.site.keywords %>" />
+<meta name="author" content="Powered by Spree, supported by hi#liwei.me" />
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+<%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+<%= javascript_include_tag 'spree/frontend/cart' %>
+<%= favicon_link_tag %>
+<%= render 'code' %>
+<%= yield :header %>
+</head>
+<body>
+<%= render "navbar" %>
+<div class="container-fluid">
+  <%= render 'shared/nav' %>
+  <%#= render 'shared/notice' %>
+  <%= yield %>
+</div>
+<%= render 'shared/footer'%>
+<%= yield :footer %>
+<script>
+  $(function() {
+    function reposition() {
+      var modal = $(this),
+      dialog = modal.find('.modal-dialog');
+      modal.css('display', 'block');
+
+      // Dividing by two centers the modal exactly, but dividing by three
+      // or four works better for larger screens.
+      dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 2));
+    }
+    // Reposition when a modal is shown
+    $('.modal').on('show.bs.modal', reposition);
+    // Reposition when the window is resized
+    $(window).on('resize', function() {
+      $('.modal:visible').each(reposition);
+    });
+  });
+</script>
+</body>
+</html>

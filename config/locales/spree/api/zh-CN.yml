@@ -1,0 +1,4 @@
+zh-CN:
+  spree:
+    api:
+      must_specify_api_key: "需指定api_key"

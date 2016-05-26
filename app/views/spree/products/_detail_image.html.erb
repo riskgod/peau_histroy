@@ -1,0 +1,5 @@
+<% if product.images.any? %>
+  <img src="<%= product.images.first.attachment(:large)%>" class="img-responsive center-block">
+<% else %>
+  <%= product_image(product, :itemprop => 'image') %>
+<% end %>

@@ -1,0 +1,46 @@
+<div class="text-center">
+  <%= link_to image_tag("brand_logo.jpg", width: "300", height: "102"), root_path, class: "" %>
+</div>
+<div id="navbar" class="nav <%= @mb || "mb-60" %>">
+  <ul class="sf-menu" id="navbar">
+    <%= cache_if Rails.env.production?, "site_nav" do %>
+      <% @taxons ||= Spree::Taxon.all.select('parent_id, name, permalink, id') %>
+      <% @taxons.where(parent_id: nil).each do |menu_1| %>
+        <li>
+          <a href="/t/<%= menu_1.permalink %>"><%= menu_1.name %></a>
+          <div class="mobnav-subarrow"></div>
+          <ul>
+            <% @taxons.where(parent_id: menu_1.id).each do |menu_2| %>
+              <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="/t/<%= menu_2.permalink %>"><%= menu_2.name %></a>
+                <ul>
+                  <% @taxons.where(parent_id: menu_2.id).each do |menu_3| %>
+                    <li><a href="/t/<%= menu_3.permalink %>"><%= menu_3.name %></a>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <li>
+        <a href="/pages/library.html">奇幻大自然</a>
+        <div class="mobnav-subarrow"></div>
+        <ul>
+          <li><a href="/pages/library.html">成分图书馆</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">World of Peau de Fée</a>
+        <div class="mobnav-subarrow"></div>
+        <ul>
+          <li><a href="/pages/about.html">关于 Peau de Fée</a></li>
+          <li><a href="/pages/enchanting_moments.html">Enchanting Moments</a></li>
+          <li><a href="/pages/declaration.html">纯净宣言</a></li>
+          <li><a href="/pages/contributions.html">关爱与给予</a></li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+  <div class="clearfix"></div>
+</div>

@@ -1,0 +1,38 @@
+<% unless @product_properties.empty? %>
+  <div id="product-properties" class="row">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <% @product_property_ids = @product_properties.group(:property_id).count.keys %>
+      <% @product_property_ids.each do |product_property_id| %>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= product_property_id %>" aria-expanded="true" aria-controls="collapseOne" class="accordion-toggle ">
+            <h4 class="panel-title text-center">
+                <i class="indicator glyphicon glyphicon-menu-down pull-right" style="color: grey; font-weight: normal;"></i>
+              <%= Spree::Property.find(product_property_id).try(:name) %>
+            </h4>
+            </a>
+          </div>
+          <div id="collapse_<%= product_property_id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <% @product_properties.where(property_id: product_property_id).each do |product_property|%>
+                <%= simple_format product_property.value %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$(function(){
+  $('div.panel-collapse').on('show.bs.collapse', function() {
+    $(this).parent("div").find("i.glyphicon-menu-down").removeClass("glyphicon-menu-down").addClass("glyphicon-menu-up");
+  });
+
+  $('div.panel-collapse').on('hide.bs.collapse', function() {
+    $(this).parent("div").find("i.glyphicon-menu-up").removeClass("glyphicon-menu-up").addClass("glyphicon-menu-down");
+  });
+})
+</script>

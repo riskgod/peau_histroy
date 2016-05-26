@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <% flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, class: "alert alert-dismissible #{name} alert-#{alert_name(name)} text-center" do %>
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <%= msg %>
+      <% end if ["error", "alert"].include?(name) %>
+    <% end -%>
+  </div>
+</div>

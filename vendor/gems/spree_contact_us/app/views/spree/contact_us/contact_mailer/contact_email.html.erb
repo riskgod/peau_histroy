@@ -1,0 +1,14 @@
+<p>名：<%= @contact.first_name %></p>
+<p>姓：<%= @contact.last_name %></p>
+<p>性别：<%= @contact.gender %></p>
+<p>省份：<%= Spree::State.find_by(id: @contact.state_id).try(:name) %></p>
+<p>城市：<%= @contact.city %></p>
+<p>地址：<%= @contact.address %></p>
+<p>公司名称：<%= @contact.address2 %></p>
+<p>职位：<%= @contact.zhiwei %></p>
+<p>移动电话：<%= @contact.mobile %></p>
+<p>邮编：<%= @contact.zipcode %></p>
+<p>电话：<%= @contact.phone %></p>
+<p>电子邮件：<%= @contact.email %></p>
+<p>是否为会员：<%= @contact.id_member %></p>
+<p>留言：<%= @contact.message %></p>

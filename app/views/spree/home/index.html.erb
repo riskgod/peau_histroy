@@ -1,0 +1,19 @@
+<%= content_for :header do %>
+  <%= javascript_include_tag 'jquery.bxslider' %>
+  <%= stylesheet_link_tag 'jquery.bxslider', media: 'all' %>
+  <% @mb = 0 %>
+<% end %>
+<div class="row">
+  <ul class="bxslider">
+    <li><%= image_tag("slide6.jpg") %></li>
+    <li><%= image_tag("slide5.jpg") %></li>
+    <li><%= image_tag("slide4.jpg") %></li>
+  </ul>
+</div>
+<%= content_for :footer do %>
+<script>
+  jQuery(document).ready(function($) {
+    $('.bxslider').bxSlider({controls: false, pager: false, auto: true, speed: 1500, mode: 'fade'});
+  });
+</script>
+<% end %>

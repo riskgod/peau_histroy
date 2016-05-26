@@ -1,0 +1,78 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:gift_cards) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:new_gift_card), '/admin/gift_cards/new', :icon => 'icon-plus' %>
+  </li>
+<% end %>
+
+<% content_for :table_filter_title do %>
+  <h2>搜索</h2>
+<% end %>
+
+
+<% content_for :table_filter do %>
+  <div data-hook="admin_products_sidebar">
+
+    <%= search_form_for [:admin, @search] do |f| %>
+      <%- locals = {:f => f} %>
+      <div data-hook="admin_products_index_search">
+        <div class="field checkbox">
+          <label>
+            只显示已使用礼品卡
+            <%= f.check_box :user_id_null, {}, '0', nil %>
+          </label>
+        </div>
+        <div class="form-group">
+          <%= f.label :amount_eq, "金额" %>
+          <%= f.select :amount_eq, [nil,500,800,1200,2000,3000], :size => 15, class: "form-control js-quick-search-target" %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= f.label :amount_gt, "金额大于" %>
+          <%= f.text_field :amount_gt, :size => 15, class: "form-control js-quick-search-target" %>
+          <%= f.label :amount_lt, "金额小于" %>
+          <%= f.text_field :amount_lt, :size => 15, class: "form-control js-quick-search-target" %>
+          <%= f.label :code_cont, Spree.t(:code) %>
+          <%= f.text_field :code_cont, :size => 15, class: "form-control js-quick-search-target" %>
+          <%= f.label :reason_cont, Spree.t(:reason) %>
+          <%= f.text_field :reason_cont, :size => 15, class: "form-control js-quick-search-target" %>
+        </div>
+      </div>
+      <div data-hook="admin_products_index_search_buttons" class="form-actions">
+        <%= button Spree.t(:search), 'search' %>
+      </div>
+    <% end %>
+
+  </div>
+<% end %>
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= sort_link(@search, :user_id, Spree.t(:user_id)) %></th>
+      <th><%= sort_link(@search, :id, '卡号') %></th>
+      <th><%= Spree.t(:code) %></th>
+      <th><%= sort_link(@search, :amount, Spree.t(:amount)) %></th>
+      <th><%= Spree.t(:reason) %></th>
+      <th class="actions" width="100"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @gift_cards.each do |card| %>
+      <tr id="<%= spree_dom_id card %>">
+        <td><%= card.try(:user).try(:email) %></td>
+        <td><%= "FEE#{1500000+card.id}" %></td>
+        <td><%= card.code %></td>
+        <td><%= card.amount %></td>
+        <td><%= card.reason %></td>
+        <td class="actions">
+          <%= link_to_delete card, :no_text => true if can?(:delete, card) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @gift_cards %>

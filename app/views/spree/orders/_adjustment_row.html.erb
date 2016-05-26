@@ -1,0 +1,9 @@
+<% if adjustments.sum(&:amount) != 0 %>
+  <tr class="adjustment">
+    <td colspan="4" align='right'><%= label.split('(')[-1].split(')')[0] %></td>
+    <td align='right'>
+      <%= Spree::Money.new(adjustments.sum(&:amount), :currency => @order.currency) %>
+    </td>
+    <td></td>
+  </tr>
+<% end %>

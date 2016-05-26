@@ -1,0 +1,18 @@
+<% if p.price > 0 %>
+  <% url = product_path(p, :taxon_id => taxon.try(:id)) %>
+  <div class="thumbnail">
+    <div class="pic center-block"><%= link_to product_image(p, :itemprop => 'image', class: "img-responsive"), url, :itemprop => 'url' %></div>
+    <div class="caption">
+      <p class="name"><font face="Trajan Pro"><%= p.name.split('|').first %></font></p>
+      <p class="name2"><%= p.name.split('|').last if p.name.split('|').size > 1 %></p>
+      <p class="price"><%= display_price(p) %></p>
+      <p><%= link_to "查看更多信息", url, class: "btn btn-primary full_width", role: "button" %></p>
+      <p class="text-left notice">
+        <% if p.total_on_hand <= 0 %>
+          <span class="glyphicon glyphicon-volume-down" aria-hidden="true"></span>
+          商品已售完，即将补货
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>

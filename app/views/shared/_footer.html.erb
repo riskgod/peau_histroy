@@ -1,0 +1,25 @@
+<div class="navbar navbar-fixed-bottom">
+  <footer class="footer">
+    <div class="container text-center">
+      <div class="copyright">&copy; Peau de Fée LLC, USA. All rights reserved.</div>
+      <% ['privacy', 'law', 'qa'].each do |page| %>
+        <%= link_to Spree.t("info_#{page}".to_sym), "/pages/info/#{page}", remote: true, method: :post %>
+      <% end %>
+      <%= link_to Spree.t(:info_contact), contact_us_path %>
+    </div>
+  </footer>
+</div>
+
+<div class="modal fade" id="infoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><%= image_tag("close.gif") %></button>
+      </div>
+      <div class="row">
+        <h4 class="modal-title col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2"></h4>
+        <div class="modal-body col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2"></div>
+      </div>
+    </div>
+  </div>
+</div>

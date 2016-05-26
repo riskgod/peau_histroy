@@ -1,0 +1,7 @@
+$("#infoModal .modal-title").html("<%= Spree.t("info_#{params[:page]}".to_sym)%>");
+$("#infoModal .modal-body").html("<%= j render(partial: params[:page] )%>");
+$('#infoModal').modal();
+
+$(".info_link").bind('click', null, function(event) {
+  $(this).parent().find('p').toggle('slow');
+});

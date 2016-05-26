@@ -1,0 +1,66 @@
+<%= content_for :header do %>
+  <%= stylesheet_link_tag 'jquery.bootstrap-touchspin', media: 'all' %>
+  <%= javascript_include_tag 'jquery.bootstrap-touchspin' %>
+<% end %>
+
+<script>
+  $(function(){
+    $(".cart-item-price:contains('￥0.00') + td input").attr("disabled","disabled");
+    $(".cart-item-price + td input").change(function(){
+      $("#update-button").trigger("click");
+      // alert("aaa");
+    })
+    $("#checkout-link").click(function(){
+      a =$(".cart-total").text().split('¥')[1];
+      b =parseFloat(a);
+      if(b <=0 ){
+        alert("订单金额必须大于零")
+        return false;
+      }
+    })
+  })
+</script>
+<% @body_id = 'cart' %>
+<div class="col-md-12">
+	<div data-hook="cart_container" class="col-md-10 col-md-offset-1">
+    <h3 class="text-center"><%= Spree.t(:shopping_cart) %></h3>
+    <hr>
+    <% if @order.line_items.empty? %>
+      <div data-hook="empty_cart" style="text-align:center;">
+        <div class="alert alert-info"><%= Spree.t(:your_cart_is_empty) %></div>
+        <p><%= link_to Spree.t(:continue_shopping), products_path, :class => 'btn btn-primary', data: {disable_with: "请稍等"} %></p>
+      </div>
+      <br/><br/><br/><br/>
+    <% else %>
+    <div data-hook="outside_cart_form">
+      <%= form_for @order, :url => update_cart_path, :html => {:id => 'update-cart'} do |order_form| %>
+        <div data-hook="inside_cart_form">
+          <div data-hook="cart_items" class="table-responsive">
+            <%= render :partial => 'form', :locals => { :order_form => order_form } %>
+          </div>
+          <br/>
+          <div class="" data-hook="cart_buttons">
+            <!-- <div class="form-group">
+              <a href="/account" style="font-size: 12px">您若有礼品卡请先到个人中心绑定！</a>
+              <%= order_form.text_field :coupon_code, :size => 10, :placeholder => Spree.t(:coupon_code), class: "" %>
+            </div> -->
+            <%#= button_tag :class => 'btn btn-primary', :id => 'update-button', data: {disable_with: "请稍等"} do %>
+              <%#= Spree.t(:update) %>
+            <%# end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <br/><br/><br/><br/>
+    <div id="empty-cart" class="col-md-10 " data-hook>
+      <%= form_tag empty_cart_path, :method => :put do %>
+        <p id="clear_cart_link" data-hook>
+          <%= submit_tag Spree.t(:empty_cart), :class => 'btn btn-primary', data: {disable_with: "请稍等"} %>
+          <%= Spree.t(:or) %>
+          <%= link_to Spree.t(:continue_shopping), products_path, :class => 'btn btn-primary', data: {disable_with: "请稍等"} %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+</div>

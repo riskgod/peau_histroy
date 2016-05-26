@@ -1,0 +1,26 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+zh-CN:
+  spree:
+    activemodel:
+      attributes:
+        contact_us/contact:
+          name: "姓名"
+          email: "邮件"
+          message: "信息"
+          subject: "标题"
+          address2: "地区"
+          mobile: "手机号码"
+          zipcode: "邮政编码"
+    contact_us_title: "联系我们"
+    sent_by_contact_form: "邮件由 %{email} 发送"
+    sent_by_name: "来自 %{name} [%{email}] 的邮件"
+    mail_subject: "由 %{email} 发送的反馈邮件"
+    subject: "标题"
+    message: "留言"
+    submit: "提交"
+
+    contact_us:
+      notices:
+        success: 邮件发送成功"

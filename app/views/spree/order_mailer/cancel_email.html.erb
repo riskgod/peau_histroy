@@ -1,0 +1,7 @@
+<p>
+  <%= Spree.t('order_mailer.cancel_email.dear_customer') %>
+</p>
+<p>
+  <%= Spree.t('order_mailer.cancel_email.instructions', number: @order.number) %>：<%= link_to spree.account_url, spree.account_url %>
+</p>
+

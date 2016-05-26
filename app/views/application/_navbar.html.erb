@@ -1,0 +1,80 @@
+<nav class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button id="menu-btn" type="button" class="navbar-toggle navbar-toggle-right collapsed pull-left" data-toggle="collapse" data-target="#sitenav" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">网站导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">用户导航</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <%= form_tag spree.products_path, method: 'get', role: "search", class: 'navbar-form navbar-right' do %>
+        <div class="input-group">
+          <%= hidden_field_tag 'taxon', '' %>
+          <%= search_field_tag :keywords, params[:keywords], class: "form-control input-sm menu-search", placeholder: "" %>
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-sm menu-search-btn" type="submit">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </span>
+        </div>
+      <% end %>
+      <ul class="nav navbar-nav navbar-right">
+        <%= render 'shared/login_bar' %>
+        <li>
+          <%= link_to_cart_with_icon %>
+          <ul class="dropdown-menu menu-cart" role="menu">
+            <li class="text-center">您的购物车中有<%= cart_item_num %>商品</li>
+            <li class="text-center"><%= button_to '查　看', spree.cart_path, class: 'btn btn-primary btn-sm', method: :get %></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!--/.navbar-collapse -->
+    <div id="sitenav" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <%= cache_if Rails.env.production?, "site_nav" do %>
+          <% @taxons ||= Spree::Taxon.all.select('parent_id, name, permalink, id') %>
+          <% @taxons.where(parent_id: nil).each do |menu_1| %>
+            <li>
+              <a href="/t/<%= menu_1.permalink %>"><%= menu_1.name %></a>
+              <ul>
+                <% @taxons.where(parent_id: menu_1.id).each do |menu_2| %>
+                  <li>
+                    <a href="/t/<%= menu_2.permalink %>"><%= menu_2.name %></a>
+                    <ul>
+                      <% @taxons.where(parent_id: menu_2.id).each do |menu_3| %>
+                        <li><a href="/t/<%= menu_3.permalink %>"><%= menu_3.name %></a>
+                      <% end %>
+                    </ul>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+          <li>
+            <a href="/pages/library.html">奇幻大自然</a>
+            <ul>
+              <li><a href="/pages/library.html">成分图书馆</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">World of Peau de Fée</a>
+            <ul>
+              <li><a href="/pages/about.html">关于 Peau de Fée</a></li>
+              <li><a href="/pages/enchanting_moments.html">Enchanting Moments</a></li>
+              <li><a href="/pages/declaration.html">纯净宣言</a></li>
+              <li><a href="/pages/contributions.html">关爱与给予</a></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

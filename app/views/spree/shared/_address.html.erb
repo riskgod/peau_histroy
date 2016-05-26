@@ -1,0 +1,15 @@
+<div class="address vcard">
+  <div class="fn"><%= address.firstname %></div>
+  <div class="adr">
+    <div class="street-address">
+      <div class="street-address-line">
+        <%= address.address1 %>
+      </div>
+    </div>
+  </div>
+  <% unless address.phone.blank? %>
+    <div class="tel">
+      <%= address.phone %>
+    </div>
+  <% end %>
+</div>

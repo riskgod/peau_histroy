@@ -1,0 +1,74 @@
+<fieldset id="payment" data-hook>
+  <div data-hook="checkout_payment_step">
+
+    <% if @payment_sources.present? %>
+      <div class="card_options">
+        <%= radio_button_tag 'use_existing_card', 'yes', true %>
+        <label for="use_existing_card_yes">
+          <%= Spree.t(:use_existing_cc) %>
+        </label>
+        <br/>
+        <%= radio_button_tag 'use_existing_card', 'no' %>
+        <label for="use_existing_card_no">
+          <%= Spree.t(:use_new_cc_or_payment_method) %>
+        </label>
+      </div>
+
+      <div id="existing_cards">
+        <p class="field" data-hook="existing_cards">
+          <table class="existing-credit-card-list">
+            <tbody>
+              <% @payment_sources.each do |card| %>
+                <tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
+                  <td><%= card.name %></td>
+                  <td><%= card.display_number %></td>
+                  <td><%= card.month %></td>
+                  <td><%= card.year %></td>
+                  <td>
+                    <%= radio_button_tag "order[existing_card]", card.id, (card == @payment_sources.first), { class: "existing-cc-radio" }  %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </p>
+      </div>
+    <% end %>
+
+    <% @order.available_payment_methods.each do |method| %>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-2 text-right">
+              <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.available_payment_methods.first %>
+            </div>
+            <div class="col-md-10">
+              <%= render :partial => "spree/checkout/payment/#{method.method_type}", :locals => { :payment_method => method } %>
+              <div class="text-muted hidden"><%= Spree.t(method.name, :scope => :payment_methods, :default => method.name) %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2 text-right">
+            <%= form.label :coupon_code %>
+          </div>
+          <div class="col-md-10">
+            <%= form.text_field :coupon_code %>
+            <div class="text-muted">请输入优惠券上的密码</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<%= content_for :checkout_btn do %>
+  <div class="form-buttons" data-hook="buttons">
+    <%= submit_tag Spree.t(:save_and_continue), :class => 'btn btn-primary btn-block', data: {disable_with: "请稍等"} %>
+  </div>
+<% end %>

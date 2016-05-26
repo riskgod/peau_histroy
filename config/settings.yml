@@ -1,0 +1,29 @@
+default: &default
+  site:
+    name: "peau de fée"
+    title: "peau de fée official website"
+    seo_title: "peau de fée official website"
+    keywords: ""
+    description: ""
+  api:
+    key: '41bd1259ece7954e2f12afbd2b3230242052ffda16383afb'
+
+
+development:
+  <<: *default
+  email:
+    from: "post4mail@163.com"
+    admin: "hi@liwei.me"
+    cusotmer: "hi@liwei.me"
+    contact_title: "联系我们的邮件"
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+  email:
+    from: "post4mail@163.com"
+    admin: "hi@liwei.me"
+    cusotmer: "info@peaudefee.com"
+    contact_title: "联系我们的邮件"

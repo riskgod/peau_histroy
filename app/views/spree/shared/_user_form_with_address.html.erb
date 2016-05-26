@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <span id="helpBlock" class="help-block text-right">* 必填资料</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :email, Spree.t(:email) %> *
+      <%= f.email_field :email, class: 'form-control input-sm', label: false %>
+      <label class="text-muted">使用该邮箱登录网站，查看订单等。</label>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :password, Spree.t(:password) %> *
+      <%= f.password_field :password, as: :password, class: 'form-control input-sm', label: false %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :password_confirmation, Spree.t(:confirm_password) %> *
+      <%= f.password_field :password_confirmation, as: :password, class: 'form-control input-sm', label: false %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <span id="helpBlock" class="help-block">确认</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <%= check_box_tag :accept, "yes", true %> * 通过提供您的信息，默认您已经阅读并同意我们的条件条款和隐私保护政策
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 checkbox">
+    <label>
+      <%= check_box_tag :accept_notice, true, true %> * 是的，我愿意接收来自 <%= Settings.site.name %> 关于新产品和我附近的活动的相关信息
+    </label>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="row product_detail_row">
+  <div class="row col-md-10 col-md-offset-1 product_detail">
+    <div class="col-md-6 text-center">
+      <%= render partial: 'detail_image', locals: { product: @product } %>
+    </div>
+    <div class="col-md-6 product_info">
+      <div class="name text-center">
+        <div class="eng"><font face="Trajan Pro"><%= @product.name.split('|').first %></font></div>
+        <div class="chs"><%= @product.name.split('|').last if @product.name.split('|').size > 1 %></div>
+      </div>
+      <div class="description">
+        <%= product_description(@product) rescue Spree.t(:product_has_no_description) %>
+      </div>
+      <%= render :partial => 'properties' %>
+      <div class="row">
+        <%= render :partial => 'cart_form' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="text-center">
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <% ss = Spree::Product.top(@product) %>
+    <%
+      case ss.count
+      when 1
+        width = "col-md-5"
+        offset = "col-md-offset-4"
+      when 2
+        width = "col-md-4"
+        offset = "col-md-offset-3"
+      when 3
+        width = "col-md-4"
+        offset = ""
+      when 4
+        width = "col-md-3"
+        offset = ""
+      end
+    %>
+    <div class="row <%= offset %>">
+      <% count = 0 %>
+      <% ss.each do |p| %>
+       <% count += 1 %>
+        <div class="<%= width %>">
+          <% url = product_path(p) %>
+          <div class="thumbnail">
+            <div class="pic center-block"><%= link_to product_image(p, :itemprop => 'image', class: "img-responsive"), url, :itemprop => 'url' %></div>
+            <div class="caption">
+              <p class="name"><font face="Trajan Pro"><%= p.name.split('|').first %></font></p>
+              <p class="name2"><%= p.name.split('|').last if p.name.split('|').size > 1 %></p>
+              <p class="price"><%= display_price(p) %></p>
+              <p><%= link_to "查看更多信息", url, class: "btn btn-primary full_width", role: "button" %></p>
+              <p class="text-left notice">
+                <% if p.total_on_hand <= 0 %>
+                  <span class="glyphicon glyphicon-volume-down" aria-hidden="true"></span>
+                  商品已售完，即将补货
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% break if count == 4 %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="text-center">
+    <%#= image_tag("qrcode.jpg") %>
+  </div>
+</div>
+
+<%= content_for :footer do %>
+<style>
+.product_detail_row{
+  background-image: url(<%=  bg_picture(params) %>);
+}
+</style>
+<% end %>

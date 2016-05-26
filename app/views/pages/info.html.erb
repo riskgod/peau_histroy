@@ -1,0 +1,10 @@
+<div class="row product_detail_row">
+  <div class="row col-md-10 col-md-offset-1">
+    <%= render params[:page] %>
+  </div>
+</div>
+<script>
+$(".info_link").bind('click', null, function(event) {
+  $(this).parent().find('p').toggle('slow');
+});
+</script>

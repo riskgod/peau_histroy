@@ -1,0 +1,49 @@
+<div class="col-md-12">
+	<div id="checkout" data-hook class="col-md-10 col-md-offset-1">
+	  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
+	  <!-- <div class="row" data-hook="checkout_header">
+	    <div class="text-center">
+	      <h2 data-hook="checkout_title"><%= Spree.t(@order.state.to_sym) %></h2>
+	    </div>
+	  </div> -->
+	  <div class="row" data-hook="checkout_content">
+	  	<h3 class="text-center">
+	  		<%= case @order.state
+	  			when "address"
+	  				"联络信息"
+	  			when "delivery"
+	  				"订单确认"
+	  			when "payment"
+	  				"支付"
+	  			end
+	  		%>
+	  	</h3>
+    	<hr>
+	  	<%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+	    	<div class="<%= @order.state == 'confirm' ? 'col-md-12' : 'col-md-9' %>" data-hook="checkout_form_wrapper">
+	        <% if @order.state == 'address' || !@order.email? %>
+	          <div class="panel panel-default" style="display:none;">
+	            <div class="panel-body">
+	              <div class="form-group">
+	                <%= form.label :email %>
+	                <%= form.text_field :email, :class => 'form-control' %>
+	              </div>
+	            </div>
+	          </div>
+	        <% end %>
+	        <%= form.hidden_field :state_lock_version %>
+	        <%= render @order.state, :form => form %>
+	    	</div>
+		    <% if @order.state != 'confirm' %>
+		      <div class="col-md-3">
+		        <%= render :partial => 'summary', :locals => { :order => @order } %>
+		      </div>
+		    <% end %>
+		  <% end %>
+	  </div>
+	</div>
+</div>
+<script>
+  Spree.current_order_id = "<%= @order.number %>"
+  Spree.current_order_token = "<%= @order.guest_token %>"
+</script>

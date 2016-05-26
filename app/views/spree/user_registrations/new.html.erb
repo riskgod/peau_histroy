@@ -1,0 +1,117 @@
+<%= content_for :header do %>
+  <%= stylesheet_link_tag 'bootstrapValidator', media: 'all' %>
+  <%= javascript_include_tag 'bootstrapValidator' %>
+  <%= javascript_include_tag 'language/zh_CN' %>
+<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3 class="text-center"><strong><%= Spree.t(:new_customer) %></strong></h3>
+    <hr/>
+    <div data-hook="signup">
+      <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @user } %>
+      <%= form_for resource, :as => :spree_user, :url => spree.registration_path(@user), html: { id: "new_user_form" } do |f| %>
+        <div data-hook="signup_inside_form">
+          <%= render :partial => 'spree/shared/user_form_with_address', :locals => { :f => f } %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.submit Spree.t(:signup), :class => 'btn btn-primary', data: { disable_with: "请稍等" } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= content_for :footer do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#new_user_form').bootstrapValidator({
+        message: 'This value is not valid',
+        container: 'tooltip',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          'spree_user[email]': {
+            container: 'popover',
+            validators: {
+              notEmpty: {},
+              emailAddress: {
+                message: '邮件格式不正确'
+              }
+            }
+          },
+          'spree_user[password]': {
+            validators: {
+              notEmpty: {},
+              identical: {
+                field: 'spree_user[password_confirmation]'
+              },
+              greaterThan: {
+                value: 6
+              },
+            }
+          },
+          'spree_user[password_confirmation]': {
+            validators: {
+              notEmpty: {},
+              identical: {
+                field: 'spree_user[password]'
+              },
+              greaterThan: {
+                value: 6
+              },
+            }
+          },
+          // 'bill_address[firstname]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          // 'bill_address[lastname]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          // 'bill_address[address1]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          // 'bill_address[city]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          // 'bill_address[country]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          // 'bill_address[zipcode]': {
+          //   validators: {
+          //     // notEmpty: {},
+          //     digits: {},
+          //   }
+          // },
+          // 'bill_address[phone]': {
+          //   validators: {
+          //     notEmpty: {},
+          //     digits: {},
+          //     phone: {
+          //       country: 'CN'
+          //     }
+          //   }
+          // },
+          'accept': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+        }
+      });
+    });
+  </script>
+<% end %>

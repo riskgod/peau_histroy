@@ -1,0 +1,93 @@
+<%= content_for :header do %>
+  <%= stylesheet_link_tag 'bootstrapValidator', media: 'all' %>
+  <%= javascript_include_tag 'bootstrapValidator' %>
+  <%= javascript_include_tag 'language/zh_CN' %>
+<% end %>
+<% address_id = address_type.chars.first %>
+<div class="inner" data-hook=<%="#{address_type}_inner" %>>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="order_bill_address_attributes_firstname">收货人</label> *
+        <%= form.text_field :firstname, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="order_bill_address_attributes_phone">联系电话</label> *
+        <%= form.phone_field :phone, :class => "form-control" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="order_bill_address_attributes_address1">收货地址</label> *
+        <%= form.text_field :address1, :class => 'form-control required' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form.text_field :lastname, value: "无", :class => 'hide' %>
+<%= form.text_field :country_id, value: 1, :class => 'hide' %>
+<%= form.text_field :state_id, value: 1, :class => 'hide' %>
+<%= form.text_field :city, value: "无", :class => 'hide' %>
+
+<%= content_for :footer do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#checkout_form_address').bootstrapValidator({
+        message: 'This value is not valid',
+        container: 'tooltip',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          'order[bill_address_attributes][firstname]': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+          // 'order[bill_address_attributes][lastname]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          'order[bill_address_attributes][address1]': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+          // 'order[bill_address_attributes][city]': {
+          //   validators: {
+          //     notEmpty: {},
+          //   }
+          // },
+          // 'order[bill_address_attributes][zipcode]': {
+          //   validators: {
+          //     // notEmpty: {},
+          //     digits: {},
+          //   }
+          // },
+          'order[bill_address_attributes][phone]': {
+            validators: {
+              notEmpty: {},
+              digits: {},
+              phone: {
+                country: 'CN'
+              }
+            }
+          },
+          'accept': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+        }
+      });
+    });
+  </script>
+<% end %>

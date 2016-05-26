@@ -1,0 +1,37 @@
+<% if (spree_current_user && spree_current_user.store_credits_total > 0) %>
+<%
+usable_amount = number_with_precision(@order.store_credit_maximum_usable_amount, :precision => 2, :separator => '.', :delimiter => '')
+# usable_amount = 0
+%>
+ <script>
+	$(function(){
+		var tick = 0
+		$("#button_gift_card").click(function () {
+      // $("#show_gift_card").show();
+      tick = tick + 1;
+      if(tick % 2 == 1){
+        $('#order_store_credit_amount').attr("value",<%= usable_amount%>);
+      }
+      else{
+        $('#order_store_credit_amount').attr("value",'0');
+      }
+		});
+	})
+ </script>
+  <div class="row">
+    <div class="col-md-12">
+      <div>礼品卡余额：<strong><%= spree_current_user.store_credits_total.to_f.round(2) %>元</strong></div>
+      <div>
+        <label>
+          <input name="Fruit" type="checkbox" value="" id="button_gift_card" />
+          <strong>使用礼品卡支付</strong>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="show_gift_card" style="display:none;">
+    <label><%= "输入您要使用的礼品卡金额" %></label><br />
+    <%= form.text_field :store_credit_amount, :size => 19, :value => '0', :data => { :store_credit_maximum_amount => usable_amount, :store_credit_maximum_amount_message => Spree.t('store_credit_maximum_amount', :amount => number_to_currency(@order.store_credit_maximum_usable_amount)) } %>
+  </div>
+<% end %>

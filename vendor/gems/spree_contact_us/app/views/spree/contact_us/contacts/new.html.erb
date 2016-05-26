@@ -1,0 +1,196 @@
+<%= content_for :header do %>
+  <meta name="title" content="<%= Spree.t(:contact_us_title) %>">
+  <%= stylesheet_link_tag 'bootstrapValidator', media: 'all' %>
+  <%= javascript_include_tag 'bootstrapValidator' %>
+  <%= javascript_include_tag 'language/zh_CN' %>
+<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3 class="text-center"><strong><%= Spree.t(:contact_us_title) %></strong></h3>
+    <hr>
+    <p>我们将竭力协助您了解或解决任何有关<%= Settings.site.name %>产品、服务质量或网络购物等方面的问题，我们期待您的来信。</p>
+    <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @contact } %>
+    <%= form_for @contact, :url => contacts_path, :html => { :class => '' } do |f| %>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label class="radio-inline">
+            <input type="radio" name="contact_us_contact[gender]" id="inlineRadio1" value="女士"> 女士
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="contact_us_contact[gender]" id="inlineRadio2" value="先生"> 先生
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <%= f.label :first_name, Spree.t(:first_name)+" *" %>
+          <%= f.text_field :first_name, :class => 'form-control' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :last_name, Spree.t(:last_name)+" *" %>
+          <%= f.text_field :last_name, :class => 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <%= f.label :country, Spree.t(:country)+" *" %>
+          <%= select :contact_us_contact, :country_id, Spree::Country.all.collect {|p| [ p.name, p.id ] }, {}, class: 'form-control input-sm', label: false %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :state, Spree.t(:state)+" *" %>
+          <%= select :contact_us_contact, :state_id, Spree::State.all.collect {|p| [ p.name, p.id ] }, {}, class: 'form-control input-sm', label: false %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <%= f.label :city, Spree.t(:city)+" *" %>
+          <%= f.text_field :city, :class => 'form-control' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :address, Spree.t(:address)+" *" %>
+          <%= f.text_field :address, :class => 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <%= f.label :address2, "公司名称" %>
+          <%= f.text_field :address2, :class => 'form-control' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :zhiwei, "职位" %>
+          <%= f.text_field :zhiwei, :class => 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <%= f.label :mobile, Spree.t(:mobile)+" *" %>
+          <%= f.text_field :mobile, :class => 'form-control' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :zipcode, Spree.t(:zipcode)+" *" %>
+          <%= f.text_field :zipcode, :class => 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <%= f.label :phone, Spree.t(:phone) %>
+          <%= f.text_field :phone, :class => 'form-control' %>
+        </div>
+        <div class="form-group col-md-6">
+          <%= f.label :email, Spree.t(:email)+" *" %>
+          <%= f.text_field :email, :class => 'form-control' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-12">
+          <%= f.label :message, Spree.t(:message)+" *"  %>
+          <%= f.text_area :message, :class => 'form-control', rows: 6 %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <%= check_box_tag :accept_notice, "yes", true %> 是的，我愿意接收来自 <%= Settings.site.name %> 关于新产品和我附近的活动的相关信息
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="form-group">
+            你是否是 <%= Settings.site.name %> 网站的注册会员？ <label><%= radio_button_tag "contact_us_contact[id_member]", "yes", false %> 是</label> <label><%= radio_button_tag "contact_us_contact[id_member]", "no", false %> 否</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <%= check_box_tag :accept, "yes", true %> 本人同意所提供的资料可按照本人已阅读、理解及同意之法律声明及隐私政策而持有及使用。
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 text-center">
+            <%= button_tag :class => 'btn btn-primary', :id => 'update-button', data: {disable_with: "请稍等"} do %>
+              <%= Spree.t(:confirm_and_submit) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= content_for :footer do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#new_contact_us_contact').bootstrapValidator({
+        message: 'This value is not valid',
+        fields: {
+          'contact_us_contact[first_name]': {
+            container: 'popover',
+            validators: {
+              notEmpty: {},
+            }
+          },
+          'contact_us_contact[last_name]': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+          'contact_us_contact[city]': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+          'contact_us_contact[address]': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+          'contact_us_contact[mobile]': {
+            validators: {
+              notEmpty: {},
+              digits: {},
+              phone: {
+                country: 'CN'
+              }
+            }
+          },
+          'contact_us_contact[zipcode]': {
+            validators: {
+              notEmpty: {},
+              digits: {},
+            }
+          },
+          'contact_us_contact[email]': {
+            validators: {
+              notEmpty: {},
+              emailAddress: {
+                message: '邮件格式不正确'
+              }
+            }
+          },
+          'contact_us_contact[message]': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+          'accept': {
+            validators: {
+              notEmpty: {},
+            }
+          },
+        }
+      });
+    });
+  </script>
+<% end %>

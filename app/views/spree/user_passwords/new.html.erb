@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3 class="text-center"><strong><%= Spree.t(:forgot_password) %></strong></h3>
+    <hr/>
+    <div data-hook="signup">
+      <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @spree_user } %>
+      <%= form_for Spree::User.new, :as => :spree_user, :url => spree.reset_password_path do |f| %>
+        <div data-hook="signup_inside_form">
+          <p><%= Spree.t(:instructions_to_reset_password) %></p>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :email, Spree.t(:email) %>
+                <%= f.email_field :email, class: 'form-control input-sm', label: false %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.submit Spree.t(:reset_password), :class => 'btn btn-primary', data: { disable_with: "请稍等" } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

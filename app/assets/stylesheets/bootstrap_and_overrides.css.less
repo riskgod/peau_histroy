@@ -1,0 +1,753 @@
+@import "bootstrap/bootstrap";
+
+// Set the correct sprite paths
+@iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: image-url("twitter/bootstrap/glyphicons-halflings-white.png");
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+@fontAwesomeEotPath: font-url("fontawesome-webfont.eot");
+@fontAwesomeEotPath_iefix: font-url("fontawesome-webfont.eot?#iefix");
+@fontAwesomeWoffPath: font-url("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: font-url("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: font-url("fontawesome-webfont.svg#fontawesomeregular");
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: asset-url('glyphicons-halflings-regular.eot');
+  src: asset-url('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+    asset-url('glyphicons-halflings-regular.woff') format('woff'),
+    asset-url('glyphicons-halflings-regular.ttf') format('truetype'),
+    asset-url('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+@font-face {
+  font-family: 'Trajan Pro';
+  font-style: normal;
+  src: font-url('trajan_pro/trajan_pro.woff');
+  src: font-url('trajan_pro/trajan_pro.eot?#iefix') format('embedded-opentype'),
+    font-url('trajan_pro/trajan_pro.woff') format('woff'),
+    font-url('trajan_pro/trajan_pro.ttf') format('truetype'),
+    font-url('trajan_pro/trajan_pro.svg#Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GillSans';
+  font-style: normal;
+  src: font-url('GillSans/GillSans.woff');
+  src: font-url('GillSans/GillSans.eot?#iefix') format('embedded-opentype'),
+    font-url('GillSans/GillSans.woff') format('woff'),
+    font-url('GillSans/GillSans.ttf') format('truetype'),
+    font-url('GillSans/GillSans.svg#Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Font Awesome
+@import "fontawesome/font-awesome";
+
+// Glyphicons
+//@import "twitter/bootstrap/glyphicons.less";
+
+// Your custom LESS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
+//
+// Example:
+// @link-color: #ff0000;
+
+// General
+body{
+  font-family: Arial, Helvetica, sans-serif, '黑体';
+  height: 100%;
+  min-height: 100%;
+}
+a {
+  color: black;
+  text-decoration: none;
+  cursor: hand;
+  &:hover {
+    color: black;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #404042;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 30px
+}
+
+h4 {
+  font-size: 18px;
+  line-height: 28px
+}
+
+h5 {
+  font-size: 14px;
+  line-height: 24px
+}
+
+h6 {
+  font-size: 12px;
+  line-height: 22px
+}
+
+.pt-60 {
+  padding-top: 60px;
+}
+
+.full_width {
+  width: 100%;
+}
+
+// Special Link
+a.with_underline {
+  text-decoration: underline;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+}
+.footer {
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    position: relative;
+    a {
+      padding: 0 10px;
+    }
+    font-size: 12px;
+  }
+  .text-muted {
+    margin: 20px 0;
+  }
+  .copyright {
+    @media (min-width: @screen-xs-max) {
+      position: absolute;
+      left: 0;
+      float: left;
+      clear: right;
+    }
+  }
+}
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+// Mobile
+@media (max-width: @screen-xs-max) {
+  .footer {
+    line-height: 20px;
+  }
+  .thumbnail {
+    .caption {
+      .name {
+        line-height: 30px;
+      }
+    }
+  }
+}
+// PC
+@media (min-width: @screen-xs-max) {
+  .footer {
+    line-height: 40px;
+  }
+  .menu-search {
+    // width: 100px;
+  }
+  .mb-60 {
+    margin-bottom: 30px;
+  }
+  .thumbnail {
+    .caption {
+      .name {
+        height: 50px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md) and (max-width: 1300px) {
+  .thumbnail {
+    .caption {
+      .name {
+        height: 90px;
+      }
+    }
+  }
+}
+
+// Navbar
+.navbar {
+  .menu-login {
+    width: 360px;
+    padding: 15px 15px 0 15px;
+  }
+
+  .menu-cart {
+    // width: 240px;
+    padding: 5px;
+  }
+
+  .menu-search {
+    border-right: none;
+  }
+  .menu-search-btn {
+    border-left: none;
+  }
+}
+
+// Products list
+
+.thumbnail {
+  text-align: center;
+  .pic {
+    width: 160px;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+    img {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+  .caption {
+    .name {
+      font-size: 16px;
+      // overflow: hidden;
+    }
+    .name2 {
+      font-size: 17px;
+      height: 60px;
+      overflow: hidden;
+    }
+    .price {
+      letter-spacing: 1px;
+    }
+  }
+  .notice {
+    line-height: 30px;
+    height: 30px;
+  }
+}
+
+// Product show
+
+.product_detail_row{
+  // background-image: asset-url('detail_bg.jpg');
+  padding: 50px;
+}
+.product_detail{
+  padding-bottom: 20px;
+  background: white;
+  padding: 50px;
+}
+.product_info {
+  .name {
+    .eng {
+      font-size: 20px;
+    }
+    .chs {
+      font-size: 22px;
+    }
+    // letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .description {
+    font-size: 15px;
+    margin-bottom: 15px;
+    font-color: #333;
+  }
+  #product-properties img{
+    margin: 15px auto;
+  }
+  #product-variants{
+    margin: 15px 0px;
+    select{
+      background: transparent;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      text-decoration: none;
+    }
+  }
+  .add-to-cart{
+    line-height: 30px;
+    .quantity {
+      width: 50px;
+    }
+  }
+  .add-to-cart-button{
+    margin-top: 15px;
+  }
+  .product_detail_row_buy_count{
+    margin-top: 15px;
+    input{
+      width: 50px;
+    }
+  }
+}
+
+// Page bg
+.with_bg1{
+  background-image: asset-url('bg2.jpg');
+  padding: 20px 0;
+}
+.with_bg2{
+  background-image: asset-url('bg2.jpg');
+  padding: 20px 0;
+}
+
+// Cart table
+#cart-detail {
+  width: 100%;
+  border-collapse: separate;
+  background-color: white;
+  color: black;
+  #line_items tr td[data-hook="cart_item_quantity"] .line_item_quantity {
+    // width: 65px
+    text-align: center;
+  }
+  #line_items tr td[data-hook="cart_item_delete"] .delete {
+    display: block;
+    width: 20px
+  }
+  .cart-item-image {width: 13%;}
+  .cart-item-description {width: 50%;}
+  .cart-item-total, .cart-item-price, .cart-total, .cart-item-price-header, .cart-item-total-header {
+    text-align: right;
+  }
+}
+
+/*  order   */
+table thead {
+
+}
+
+table thead tr th {
+  padding: 5px 10px
+}
+
+table#cart-detail {
+  width: 100%;
+  border-collapse: separate
+}
+
+table#cart-detail tbody#line_items tr td[data-hook="cart_item_quantity"] .line_item_quantity {
+  // width: 65px
+}
+
+table#cart-detail tbody#line_items tr td[data-hook="cart_item_delete"] .delete {
+  display: block;
+  width: 20px
+}
+
+table thead tr th {
+  padding: 5px 10px
+}
+
+table tbody tr td, table tfoot tr td {
+  vertical-align: middle;
+  padding: 5px 10px
+}
+
+// Button
+.btn-custom{
+  width: 100px;
+  // letter-spacing: 10px;
+  text-align: center;
+}
+
+// Billing
+
+#billing, #shipping, #shipping_method, #payment, #order_details,
+#order_summary {
+  margin-top: 10px;
+  border: 1px solid #d9d9db;
+  padding: 10px
+}
+
+#billing legend, #shipping legend, #shipping_method legend, #payment legend,
+#order_details legend, #order_summary legend {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+
+  padding: 5px;
+  margin-left: 15px
+}
+
+#billing input[type="text"], #billing input[type="email"], #billing input[type="tel"],
+#billing input[type="number"], #billing select, #billing textarea {
+  width: 100%
+}
+
+// Checkout summary
+#checkout-summary {
+  text-align: left;
+  border: 1px solid #d9d9db;
+  margin-top: 10px;
+  margin-left: 0
+}
+
+#checkout-summary h3 {
+  text-transform: uppercase;
+  font-size: 14px;
+  border-bottom: 1px solid #d9d9db
+}
+
+#checkout-summary table {
+  width: 100%
+}
+
+#checkout-summary table tr[data-hook="order_total"] {
+  border-bottom: none
+}
+
+#checkout-summary table #summary-order-total {
+  font-size: 14px
+}
+
+// Shipping
+
+#shipping_method p#minstrs {
+  clear: both
+}
+
+#shipping_method p#minstrs label {
+  width: 100%
+}
+
+#shipping_method p label {
+  float: left;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 40px;
+  padding: 5px
+}
+
+#shipping_method .shipment {
+  // margin-bottom: 30px
+}
+
+#shipping_method .stock-shipping-method-title {
+  background-color: #f3f3f4;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 11px
+}
+
+#shipping_method .stock-location {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: normal;
+  color: white
+}
+
+#shipping_method .unshippable .stock-location {
+  background-color: #e45353
+}
+
+#shipping_method .shipping-methods {
+  list-style: none;
+  margin: 0;
+  padding: none
+}
+
+#shipping_method .shipping-methods .shipping-method {
+  display: inline-block;
+  margin: 5px 10px 5px 0
+}
+
+#shipping_method .shipping-methods .shipping-method label {
+  font-weight: bold
+}
+
+#shipping_method .shipping-methods .shipping-method label .rate-cost {
+  /*    color: #00adee*/
+}
+
+#shipping_method table.stock-contents thead {
+  background-color: #f3f3f4
+}
+
+#shipping_method table.stock-contents thead th {
+  font-size: 11px;
+  font-weight: normal
+}
+
+#shipping_method table.stock-contents tbody tr td {
+  text-align: center
+}
+
+#shipping_method table.stock-contents tbody tr td.item-name {
+  text-align: left
+}
+
+#shipping_method table.stock-contents { width: 100%;}
+#shipping_method table.stock-contents thead th {font-size: 15px;}
+#shipping_method .stock-location {font-size: 17px; background-color: black}
+#shipping_method .stock-shipping-method-title {font-size: 17px;}
+
+
+/* Wrap for mobile screen */
+.mob-btn-style {
+  display: block;
+  background-color: #0f3975;
+  opacity: .3;
+  border-bottom: 1px solid white;
+  border-top: 1px solid black;
+  height: 20px;
+  width: 30px;
+  background-position: top left!important;
+  top: 8px;
+  right: 10px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -ms-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+#mobnav-btn {
+  display: none;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  cursor: pointer;
+  .mobnav-arrow {
+    .mob-btn-style;
+  }
+}
+.mobnav-nav-icon {
+  display: block;
+  height: 20px;
+  width: 60px;
+  top: 8px;
+  right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  cursor: pointer;
+  background-position: top left!important;
+  -webkit-border-radius: 5px;
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -ms-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+.mobnav-subarrow {
+  display: none;
+}
+
+// 小屏幕
+@media screen and (max-width: @grid-float-breakpoint) {
+  #mobnav-btn {
+    display: block;
+  }
+  .mobnav-subarrow {
+
+    // position: absolute;
+    display: none;
+  }
+  .sf-menu {
+    width: 100% !important;
+    display: none;
+  }
+  .sf-menu.xactive {
+    display: block !important;
+  }
+  .sf-menu li {
+    float: none !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  .sf-menu li a {
+    float: none !important;
+  }
+  .sf-menu li li {
+    padding-left: 20px;
+  }
+  .sf-menu ul {
+    position:static !important;
+    display: none !important;
+  }
+  .xpopdrop ul {
+    display: block !important;
+  }
+}
+
+// 小屏幕
+@media (max-width: @screen-xs-max) {
+  .navbar-toggle-right {
+    margin-left: 15px;
+  }
+}
+// 大屏幕
+@media (min-width: @screen-xs-max) {
+  // 大屏幕隐藏顶部导航
+  #sitenav {
+    display: none !important;
+  }
+  // @navbar_a: .15em .5em .15em 1em !important;
+  @navbar_a: .5em .5em .5em 1em !important;
+  .sf-menu {
+    ul li a {
+      padding: @navbar_a;
+    }
+    ul ul li a {
+      padding: @navbar_a;
+    }
+  }
+}
+
+// Nav search bar
+.nav_search_form {
+  padding-top: 10px;
+}
+
+// Collapse
+.arrow-toggle .icon-arrow-down,.arrow-toggle.collapsed .icon-arrow-left {
+    display: inline-block;
+}
+.arrow-toggle.collapsed .icon-arrow-down,.arrow-toggle .icon-arrow-left {
+    display: none;
+}
+.panel {
+  .panel-heading {
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .panel-body {
+    p {margin-bottom: 5px;}
+  }
+  .no-border {
+    border-bottom: none;
+  }
+}
+
+// Page
+.info_link {
+  line-height: 40px;
+  border-bottom: 1px solid #333;
+  display: block;
+  &:hover {
+    text-decoration: none;
+  }
+}
+.info_content {
+  padding: 10px;
+  line-height: 24px;
+}
+
+.page_board {
+  border: 2px solid #333;
+  background-color: #fff;
+  padding: 10px;
+  .page_page {
+    // background: asset-url("bg.jpg");
+    line-height: 200%;
+    .page_content {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .page_title {
+      margin-bottom: 40px;
+    }
+    p {
+      color: #333;
+      font-size: 16px;
+    }
+    .white-bg {
+      background-color: white;
+    }
+    .panel-heading {
+      border-bottom: none;
+    }
+  }
+}
+
+// Collapse Speed
+// .collapsing { transition: height 1s; }
+
+// Remove input hightlight
+input:focus, textarea:focus {
+  outline: none;
+}
+
+.table-borderless {
+  tr, td, th {
+    border: none !important;
+  }
+}
+
+// Slide
+.slide2-bg {
+  background-image: asset-url('hai1.jpg');
+  height: 582px;
+}
+
+.slide3-bg {
+  // background-image: asset-url('hua2.jpg');
+  height: 582px;
+}
+
+.no-mb {
+  margin-bottom: 0 !important;
+}
+.no-padding-left {
+  padding-left: 0 !important;
+}
+.normal-font {
+  font-size: 14px !important;
+}
+.dark-border {
+  border-bottom: 1px solid #333 !important;
+}
+.no-border-bottom {
+  border-bottom: 0 !important;
+}
+
+a.with_underline {
+  text-decoration: underline;
+}

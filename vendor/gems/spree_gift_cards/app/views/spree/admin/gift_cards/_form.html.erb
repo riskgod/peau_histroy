@@ -1,0 +1,26 @@
+<div data-hook="admin_gift_card_form_fields" class="row clearfix">
+  <div class="alpha five columns">
+    <%= f.field_container :amount do %>
+      <%= f.label "金额" %> <span class="required">*</span><br/>
+      <%= f.text_field :amount, :class => "fullwidth" %>
+      <%= f.error_message_on :amount %>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="alpha five columns">
+    <%= f.field_container :number do %>
+      <%= f.label "数量" %> <span class="required">*</span><br/>
+      <input type="text" name="number" class="fullwid" />
+      <%= f.error_message_on :number %>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+
+  <div class="alpha five columns">
+    <%= f.field_container :reason do %>
+      <%= f.label "描述" %>
+      <%= f.text_field :reason, :class => "fullwidth" %>
+      <%= f.error_message_on :reason %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+
+textarea.error, input[type="date"].error,
+input[type="datetime"].error, input[type="datetime-local"].error,
+input[type="email"].error, input[type="month"].error, input[type="number"].error,
+input[type="password"].error, input[type="search"].error, input[type="tel"].error,
+input[type="text"].error, input[type="time"].error, input[type="url"].error,
+input[type="week"].error {
+border-color: #e45353;
+}
+
+label.error {
+display: block;
+font-size: 11px;
+color: #e45353;
+margin-top: 3px;
+}

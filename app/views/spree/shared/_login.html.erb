@@ -1,0 +1,36 @@
+<%= simple_form_for Spree::User.new, :as => :spree_user, :url => spree.create_new_session_path, html:{ class:'form-horizontal'} do |f| %>
+  <% flash.each do |name, msg| -%>
+    <%= content_tag :div, msg do %>
+      <div class="form-group">
+        <label class="col-md-3 control-label"></label>
+        <div class="col-md-9">
+          <%= msg %>
+        </div>
+      </div>
+    <% end if ["error", "alert"].include?(name) %>
+  <% end -%>
+  <div class="form-group">
+    <%= f.label :email, "邮箱", class: "col-md-3 control-label" %>
+    <div class="col-md-9"><%= f.input :email, autofocus: true, label:false, required: true, input_html: { class: 'form-control input-sm' } %></div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, Spree.t(:password), class: "col-md-3 control-label" %>
+    <div class="col-md-9"><%= f.password_field :password, :class => 'form-control input-sm' %></div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-9 col-md-offset-3">
+      <div class="pull-right">
+        <%= link_to Spree.t(:forgot_password), spree.recover_password_path, class: "with_underline" %>
+      </div>
+      <%= f.submit Spree.t(:login), :class => 'btn btn-primary', data: { disable_with: "请稍等" } %>
+    </div>
+  </div>
+  <% if show_reg_btn %>
+    <hr>
+    <div class="form-group">
+      <div class="col-md-12">
+        <%= link_to Spree.t(:signup_a_account), spree.signup_path, class: "btn btn-block btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,5 @@
+<%= form_tag spree.products_path, method: 'get', class: 'nav_search_form' do %>
+  <%= hidden_field_tag 'taxon', '' %>
+  <%= search_field_tag :keywords, params[:keywords], class: "nav_search_input" %>
+  <%= submit_tag '', :name => nil, class: 'nav_search_button' %>
+<% end %>

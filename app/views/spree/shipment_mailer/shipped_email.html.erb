@@ -1,0 +1,9 @@
+<p>
+  <%= Spree.t('shipment_mailer.shipped_email.dear_customer') %>
+</p>
+<p>
+  <%= Spree.t('shipment_mailer.shipped_email.instructions', number: @shipment.order.number) %>：<%= link_to order_url(@shipment.order), order_url(@shipment.order) %>
+</p>
+<p>
+  <%= Spree.t('shipment_mailer.shipped_email.thanks') %>
+</p>

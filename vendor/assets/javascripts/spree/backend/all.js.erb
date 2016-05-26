@@ -1,0 +1,33 @@
+// This is a manifest file that'll be compiled into including all the files listed below.
+// Add new JavaScript/Coffee code in separate files in this directory and they'll automatically
+// be included in the compiled file accessible from http://example.com/assets/application.js
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// the compiled file.
+//
+//= require jquery
+//= require jquery_ujs
+//= require spree/backend
+
+//= require_tree .
+
+$(document).ready(function(){
+  $('[data-hook=admin_shipment_form] a.ship').unbind('click');
+  $('[data-hook=admin_shipment_form] a.ship').bind('click', function () {
+    if($("#tracking").val() == ""){
+      alert('您还没有填写快递单号!');
+    }else{
+      var link = $(this);
+      var shipment_number = link.data('shipment-number');
+      var url = Spree.url(Spree.routes.shipments_api + '/' + shipment_number + '/ship.json');
+      $.ajax({
+        type: 'PUT',
+        url: url,
+        headers: { 'X-Spree-Token': '<%= Settings.api.key %>' },
+      }).done(function () {
+        window.location.reload();
+      }).error(function (msg) {
+        console.log(msg);
+      });
+    }
+  });
+})

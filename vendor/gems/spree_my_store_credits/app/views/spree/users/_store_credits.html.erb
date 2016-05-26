@@ -1,0 +1,46 @@
+<h3><%= Spree.t("store_credits") %></h3>
+<%= form_for Spree::GiftCard.new, url: bind_the_user_gift_cards_path do |form| %>
+  请输入礼品卡号：
+  <input type="text" name="card_id" />
+  请输入礼品密码：
+  <%= form.text_field :code %>
+  <%= form.submit '激活', :class => 'btn btn-primary' %>
+<% end %>
+<% if @user.has_store_credit? %>
+  <h4>
+  <%= Spree.t('current_store_credit') %>: <strong><font size="4"><%= @user.store_credits_total.to_f.round(2) %></font>元</strong>
+  </h4>
+  <% if @orders_with_store_credit.present? %>
+  <h3><%= Spree.t('orders_with_store_credit') %></h3>
+  <table class="order-summary">
+    <thead>
+      <tr>
+        <th><%= Spree.t("order_number") %></th>
+        <th><%= Spree.t("order_date") %></th>
+        <th><%= Spree.t("status") %></th>
+        <th><%= Spree.t("customer") %></th>
+        <th><%= Spree.t("total") %></th>
+        <th><%= Spree.t("store_credit") %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @orders_with_store_credit.each do |order| %>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td><%= link_to order.number, order_url(order) %></td>
+        <td><%=order.created_at.to_date%></td>
+        <td><%= Spree.t(order.state).titleize %></td>
+        <td><%= order.user.email if order.user %></td>
+        <td><%= number_to_currency order.total %></td>
+        <td><%= number_to_currency order.store_credit_amount %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% end %>
+<% end %>
+<% if flash[:notice]%>
+<script>
+alert("<%= flash[:notice] %>");
+</script>
+<% end %>
+<br/><br/><br/>

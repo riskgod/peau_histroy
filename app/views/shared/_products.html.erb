@@ -1,0 +1,49 @@
+<%
+  paginated_products = @searcher.retrieve_products if params.key?(:keywords)
+  paginated_products ||= products
+%>
+<% if paginated_products.size == 0 %>
+  <div class="row text-center no-product-found">
+    <%= image_tag("comingsoon.jpg") %>
+  </div>
+<% elsif paginated_products.size == 1 %>
+  <div class="row" >
+    <div class="col-md-2 product_list_item col-md-offset-5">
+      <%= render partial: 'shared/product_list_single', locals:{p:paginated_products.first, taxon:taxon}%>
+    </div>
+  </div>
+<% elsif paginated_products.size == 2 %>
+  <div class="row">
+    <div class="col-md-2 product_list_item col-md-offset-4">
+      <%= render partial: 'shared/product_list_single', locals:{p:paginated_products.first, taxon:taxon}%>
+    </div>
+    <div class="col-md-2 product_list_item">
+      <%= render partial: 'shared/product_list_single', locals:{p:paginated_products.second, taxon:taxon}%>
+    </div>
+  </div>
+<% elsif paginated_products.size == 3 %>
+  <div class="row">
+    <div class="col-md-2 product_list_item col-md-offset-3">
+      <%= render partial: 'shared/product_list_single', locals:{p:paginated_products.first, taxon:taxon}%>
+    </div>
+    <div class="col-md-2 product_list_item">
+      <%= render partial: 'shared/product_list_single', locals:{p:paginated_products.second, taxon:taxon}%>
+    </div>
+    <div class="col-md-2 product_list_item">
+      <%= render partial: 'shared/product_list_single', locals:{p:paginated_products.third, taxon:taxon}%>
+    </div>
+  </div>
+<% else %>
+  <% paginated_products.in_groups_of(4).each do |ps| %>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <% ps.each do |p| %>
+      <% if p and !p.name.include? '赠' %>
+        <div class="col-sm-6 col-md-2">
+          <%= render partial: 'shared/product_list_single', locals:{p:p, taxon:taxon}%>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <% end %>
+<% end %>
